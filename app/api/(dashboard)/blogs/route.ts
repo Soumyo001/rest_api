@@ -57,7 +57,7 @@ export const GET = async (request: Request) => {
         }
 
         return NextResponse.json(
-            {message: "Successfully fetched blogs for current user", blogs}, {status: 200}
+            {message: "Successfully fetched blogs for current user", blogs: blogs.map((blog) => blog.toObject())}, {status: 200}
         );
 
     } catch (err: any) {
