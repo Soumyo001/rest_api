@@ -29,7 +29,7 @@ export const GET = async (request: Request) => {
                 {message: "User not found"}, {status: 404}
             );
         }
-        const category = await Category.findById(categoryId);
+        const category = await Category.findOne({_id: categoryId, user: userId});
         if(!category){
             return NextResponse.json(
                 {message: "Category not found"}, {status: 404}

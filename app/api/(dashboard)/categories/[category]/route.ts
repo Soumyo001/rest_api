@@ -51,7 +51,7 @@ export const PATCH = async (request: Request, context: {params: Promise<{categor
     }
 }
 
-export const DELETE = async ( request: Request, context: {params: any}) => {
+export const DELETE = async ( request: Request, context: {params: Promise<{category: string}>}) => {
     const {category: categoryId} = await context.params;
     try {
         const requestUrl = new URL(request.url);

@@ -60,7 +60,7 @@ export const GET = async (request: Request, context: {params: Promise<{blog: str
     }
 }
 
-export const PATCH = async (request: Request, context: {params: any}) => {
+export const PATCH = async (request: Request, context: {params: Promise<{blog: string}>}) => {
     const {blog: blogId} = await context.params;
     try {
         const requestUrl = new URL(request.url);
