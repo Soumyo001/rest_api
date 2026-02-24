@@ -5,7 +5,7 @@ import { Types } from "mongoose";
 import { NextResponse } from "next/server";
 
 
-export const PATCH = async (request: Request, context: {params: any}) => {
+export const PATCH = async (request: Request, context: {params: Promise<{category: string}>}) => {
     const {category: categoryId} = await context.params;
 
     try {
@@ -40,9 +40,9 @@ export const PATCH = async (request: Request, context: {params: any}) => {
             categoryId,
             {title},
             {new: true}
-        );
+        ).lean();
         return NextResponse.json(
-            {message: `Updated category for user: ${userId}`, updated_category: updatedCategory.toObject()}, {status: 200}
+            {message: `Updated category for user: ${userId}`, updated_category: updatedCategory}, {status: 200}
         );
     } catch (err: any) {
         return NextResponse.json(

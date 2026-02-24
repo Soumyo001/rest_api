@@ -6,7 +6,7 @@ import { request } from "http";
 import { Types } from "mongoose";
 import { NextResponse } from "next/server";
 
-export const GET = async (request: Request, context: {params: any}) => {
+export const GET = async (request: Request, context: {params: Promise<{blog: string}>}) => {
     const {blog: blogId} = await context.params;
     try {
         const requestUrl = new URL(request.url);
@@ -44,14 +44,14 @@ export const GET = async (request: Request, context: {params: any}) => {
             _id: blogId,
             user: userId,
             category: categoryId
-        });
+        }).lean();
         if(!blog){
             return NextResponse.json(
                 {message: "Blog not found", blog: []}, {status: 404}
             );
         }
         return NextResponse.json(
-            {blog: blog.toObject()}, {status: 200}
+            {blog}, {status: 200}
         );
     } catch (err: any) {
         return NextResponse.json(
